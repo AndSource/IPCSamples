@@ -1,5 +1,6 @@
 package leavesc.hello.messenger_client;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -16,14 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 /**
  * 作者：leavesC
  * 时间：2019/4/4 10:46
  * 描述：
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
 

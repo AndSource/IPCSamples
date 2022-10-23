@@ -1,5 +1,6 @@
 package leavesc.hello.binder_pool_client;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import leavesc.hello.binder_pool_server.IBinderPool;
 import leavesc.hello.binder_pool_server.IOperation;
 
@@ -21,7 +20,7 @@ import leavesc.hello.binder_pool_server.IOperation;
  * 时间：2019/4/4 10:58
  * 描述：
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private IOperation operation;
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button btn_add =new Button(this);
+        Button btn_add = new Button(this);
         btn_add.setText("加法");
         setContentView(btn_add);
         bindService();
