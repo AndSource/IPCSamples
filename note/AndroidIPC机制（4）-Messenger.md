@@ -2,7 +2,7 @@
 除了使用 AIDL 进行 IPC 外，我们还可以使用 Messenger 来替代 AIDL。通过在 Message 对象中放入需要传递的对象，利用 Messenger 在不同进程间传递 Message 对象，就可以方便地进行进程间通信了
 Messenger 是一种轻量级的 IPC 方案，底层实现依然是 AIDL，通过 Messenger 的两个构造方法就可以看出来
 
-```java
+``` java
     public Messenger(Handler target) {
         mTarget = target.getIMessenger();
     }
@@ -20,7 +20,7 @@ Messenger 对 AIDL 进行了封装，使开发者可以更简单地进行进程�
 与 AIDL 一样，服务端也要创建一个 Service 来处理客户端的连接请求，但服务端的代码要简单得多
 首先，通过一个 Handler 对象来创建 Messenger 对象，然后在 onBind 方法中返回 Messenger 对象底层的 Binder 即可
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/22 20:13
@@ -61,7 +61,7 @@ public class MessengerService extends Service {
 ### 三、客户端
 客户端首先要绑定服务端的 **Service**，绑定成功后通过 **ServiceConnection** 对象的 **onServiceConnected** 方法的参数 **IBinder** 来构造一个 **Messenger** 对象，之后通过 Messenger 对象即可向服务端发送消息了
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/22 20:13
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
 首先修改服务端代码
 
-```java
+``` java
 private static class MessengerHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -184,7 +184,7 @@ private static class MessengerHandler extends Handler {
 ```
 为了接收服务端的回复，客户端也需要通过 Handler 创建一个 Messenger 对象，并将该 Messenger 对象通过 Message 的 replyTo 参数传递给服务端
 
-```java
+``` java
 	private Messenger replyMessenger;
 
     private static class MessengerHandler extends Handler {
@@ -200,7 +200,7 @@ private static class MessengerHandler extends Handler {
     }
 ```
 
-```java
+``` java
 		btn_sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

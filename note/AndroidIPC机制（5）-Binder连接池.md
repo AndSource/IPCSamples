@@ -12,7 +12,7 @@
 ### 二、服务端
 首先创建三个需要的 AIDL 接口，**IOperation.aidl** 用于提供加法操作，**ICompute.aidl** 用于提供减法操作，**IBinderPool.aidl** 是一个用于中转的 **Binder** 对象，含有一个 **queryBinder** 方法用于接收一个唯一标识，并返回客户端实际需要的 **Binder** 对象
 
-```java
+``` java
 package com.czy.binder_pool_server;
 
 interface IOperation {
@@ -22,7 +22,7 @@ interface IOperation {
 }
 ```
 
-```java
+``` java
 package com.czy.binder_pool_server;
 
 interface ICompute {
@@ -32,7 +32,7 @@ interface ICompute {
 }
 ```
 
-```java
+``` java
 package com.czy.binder_pool_server;
 
 interface IBinderPool {
@@ -43,7 +43,7 @@ interface IBinderPool {
 ```
 此外，服务端还需要有 **ICompute.Stub** 和 **IOperation.Stub** 的具体实现，因为需要创建这两个类的子类
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/23 21:17
@@ -59,7 +59,7 @@ public class IOperationImpl extends IOperation.Stub {
 }
 ```
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/23 21:13
@@ -76,7 +76,7 @@ public class IComputeImpl extends ICompute.Stub {
 ```
 之后就是来创建那唯一的一个 Service 了。Service 直接返回的是 **BinderPoolImpl** 对象，而 **BinderPoolImpl** 对象的 **queryBinder** 可以根据传入的参数再返回对应的 Binder 对象，即进行中转转发，从而使客户端得到真实想要的 Binder 对象
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/23 21:55
@@ -118,7 +118,7 @@ public class BinderPoolService extends Service {
 本客户端请求服务端进行加法操作，因此需要把 **IOperation.aidl** 文件和 **IBinderPool.aidl** 文件拷贝过来
 与服务端的绑定操作与之前的文章介绍的 AIDL 机制大致相同，区别只在于在 **onServiceConnected** 中需要调用 **queryBinder** 方法获取真实的 Binder 对象
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/23 22:32

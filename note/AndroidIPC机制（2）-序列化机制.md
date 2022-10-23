@@ -13,7 +13,7 @@ IPC（Inter-Process Communication）的含义即为进程间通信或者翻译�
 Android 应用默认在命名为包名的进程下运行，除非你为其指定了 **android:process** 属性
 例如，这里创建一个应用，包名为 **com.czy.ipc** ，再指定四大组件之一的 Service 运行在其它进程下
 
-```java
+``` java
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +45,7 @@ Android 应用默认在命名为包名的进程下运行，除非你为其指定
 
 Serializable 接口是由 Java 所提供的一个序列化接口，是一个空接口，为对象提供了标准的序列化和反序列化接口。类只要实现了该接口，即可自动实现默认的序列化过程。
 
-```java
+``` java
 package java.io;
 
 public interface Serializable {
@@ -54,7 +54,7 @@ public interface Serializable {
 ```
 此外，为了辅助系统完成对象的序列化和反序列化过程，还可以声明一个 `long` 型数据 `serivalVersionUID` 
 
-```java
+``` java
 private static final long serivalVersionUID = 123456578689L;
 ```
 序列化时系统会把对象的信息以及 serivalVersionUID 一起保存到某种介质中（例如文件或内存中），当反序列化时就会把介质中的 serivalVersionUID 与类中声明的 serivalVersionUID 进行对比，如果两者相同则说明序列化的类与当前类的版本是相同的，则可以序列化成功。如果两者不相等，则说明当前类的版本已经变化（可能是新增或删减了某个方法），则会导致序列化失败
@@ -69,7 +69,7 @@ private static final long serivalVersionUID = 123456578689L;
 Parcelable 接口是由 Android 系统提供的序列化接口，官方也推荐使用 Parcelable 进行序列化操作，Bundle 、 Intent 和 Bitmap 等都实现了 Parcelable 接口。Parcelable 接口相比 Serializable 更为高效，但实现方式也相比麻烦些
 下面看个例子
 
-```java
+``` java
 /**
  * 作者：leavesC
  * 时间：2019/4/4 10:46

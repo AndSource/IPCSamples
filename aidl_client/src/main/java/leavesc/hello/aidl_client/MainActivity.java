@@ -1,5 +1,6 @@
 package leavesc.hello.aidl_client;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +23,7 @@ import leavesc.hello.aidl_server.Parameter;
  * 时间：2019/4/4 10:45
  * 描述：客户端
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
 

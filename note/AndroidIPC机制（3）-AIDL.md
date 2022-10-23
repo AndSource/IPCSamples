@@ -29,7 +29,7 @@ AIDL 的语法十分简单，与Java语言基本保持一致，需要记住的�
 服务端是提供运算操作能力的一方，所以除了需要设定运算参数的格式外，还需要提供运算方法
 此处，用 Parameter 类作为运算参数
 
-```java
+``` java
 /**
  * 作者：leavesC
  * 时间：2019/4/4 10:46
@@ -81,14 +81,14 @@ public class Parameter implements Parcelable {
 ```
 相对应的 AIDL 文件
 
-```java
+``` java
 package leavesc.hello.aidl_server;
 
 parcelable Parameter;
 ```
 此外，还需要一个向外暴露运算方法的 AIDL 接口
 
-```java
+``` java
 package leavesc.hello.aidl_server;
 
 import leavesc.hello.aidl_server.Parameter;
@@ -101,7 +101,7 @@ interface IOperationManager {
 }
 ```
 然后，在 Service 中进行实际的运算操作，并将运算结果返回
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/18 17:35
@@ -145,7 +145,7 @@ public class AIDLService extends Service {
 
 指定服务端的包名和 Service 路径，绑定服务，向其传递两个待运算参数并将运算结果展示出来
 
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/18 17:51
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
 因此，首先需要先声明一个 AIDL 接口 **`IOnOperationCompletedListener`**，用于传递运算结果
 
-```java
+``` java
 package com.czy.aidl_server;
 
 import com.czy.aidl_server.Parameter;
@@ -251,7 +251,7 @@ interface IOnOperationCompletedListener {
 ```
 将 **`IOperationManager`** 的**`operation`**  方法改为无返回值，新增注册回调函数和解除注册函数的方法
 
-```java
+``` java
 package com.czy.aidl_server;
 
 import com.czy.aidl_server.Parameter;
@@ -268,7 +268,7 @@ interface IOperationManager {
 }
 ```
 在 **`operation`** 方法中让线程休眠五秒，模拟耗时操作，然后再将运算结果传递出去
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/18 17:35
@@ -334,7 +334,7 @@ public class AIDLService extends Service {
 ```
 客户端这边一样要修改相应的 AIDL 文件
 新增两个按钮用于注册和解除注册回调函数，并在回调函数中展示运算结果
-```java
+``` java
 /**
  * 作者：叶应是叶
  * 时间：2018/3/18 17:51
@@ -467,12 +467,12 @@ public class MainActivity extends AppCompatActivity {
 
 为了能够无误地注册和解除注册回调函数，系统为开发者提供了 `RemoteCallbackList`，RemoteCallbackList 是一个泛型类，系统专门提供用于删除跨进程回调函数，支持管理任意的 AIDL 接口，因为所有的 AIDL 接口都继承自 `IInterface`，而  RemoteCallbackList 对于泛型类型有限制
 
-```java
+``` java
 	public class RemoteCallbackList<E extends IInterface>
 ```
 RemoteCallbackList 在内部有一个 ArrayMap 用于 保存所有的 AIDL 回调接口
 
-```java
+``` java
 	ArrayMap<IBinder, Callback> mCallbacks  = new ArrayMap<IBinder, Callback>();
 ```
 其中 Callback 封装了真正的远程回调函数，因为即使回调函数经过序列化和反序列化后会生成不同的对象，但这些对象的底层 Binder 对象是同一个。利用这个特征就可以通过遍历 RemoteCallbackList 的方式删除注册的回调函数了
@@ -480,12 +480,12 @@ RemoteCallbackList 在内部有一个 ArrayMap 用于 保存所有的 AIDL 回�
 
 以下就来修改代码，改为用 RemoteCallbackList 来存储 AIDL 接口
 
-```java
+``` java
     //声明
     private RemoteCallbackList<IOnOperationCompletedListener> callbackList;
 ```
 注册接口和解除注册接口
-```java
+``` java
 		@Override
         public void registerListener(IOnOperationCompletedListener listener) throws RemoteException {
             callbackList.register(listener);
@@ -499,7 +499,7 @@ RemoteCallbackList 在内部有一个 ArrayMap 用于 保存所有的 AIDL 回�
         }
 ```
 遍历回调接口
-```java
+``` java
 			//在操作 RemoteCallbackList 前，必须先调用其 beginBroadcast 方法
             //此外，beginBroadcast 必须和 finishBroadcast配套使用
             int count = callbackList.beginBroadcast();
@@ -516,7 +516,7 @@ RemoteCallbackList 在内部有一个 ArrayMap 用于 保存所有的 AIDL 回�
 还有一个地方需要强调下，是关于远程方法调用时的线程问题。客户端在调用远程服务的方法时，被调用的方法是运行在服务端的 Binder 线程池中，同时客户端线程会被挂起，这时如果服务端方法执行比较耗时，就会导致客户端线程被堵塞。就如果上一节我为了模拟耗时计算，使线程休眠了五秒，当点击按钮时就可以明显看到按钮有一种被“卡住了”的反馈效果，这就是因为 UI 线程被堵塞了，这可能会导致 ANR。所以如果确定远程方法是耗时的，就要避免在 UI 线程中去调用远程方法。
 所以，客户端调用远程方法 `operation` 的操作可以放到子线程中进行
 
-```java
+``` java
     new Thread(new Runnable() {
         @Override
         public void run() {
