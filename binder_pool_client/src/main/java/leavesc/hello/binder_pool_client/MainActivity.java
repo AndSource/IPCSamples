@@ -7,9 +7,11 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import leavesc.hello.binder_pool_server.IBinderPool;
 import leavesc.hello.binder_pool_server.IOperation;
@@ -48,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Button btn_add =new Button(this);
+        btn_add.setText("加法");
+        setContentView(btn_add);
         bindService();
-        findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (operation != null) {

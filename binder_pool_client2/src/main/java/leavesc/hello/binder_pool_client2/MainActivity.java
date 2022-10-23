@@ -1,5 +1,6 @@
 package leavesc.hello.binder_pool_client2;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -7,9 +8,9 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import leavesc.hello.binder_pool_server.IBinderPool;
 import leavesc.hello.binder_pool_server.ICompute;
@@ -19,7 +20,7 @@ import leavesc.hello.binder_pool_server.ICompute;
  * 时间：2019/4/4 10:58
  * 描述：
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private ICompute compute;
 
@@ -46,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Button btn_subtraction = new Button(this);
+        btn_subtraction.setText("减法");
+        setContentView(btn_subtraction);
         bindService();
-        findViewById(R.id.btn_subtraction).setOnClickListener(new View.OnClickListener() {
+        btn_subtraction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (compute != null) {

@@ -1,20 +1,23 @@
 package leavesc.hello.ipc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 /**
  * 作者：leavesC
  * 时间：2019/4/4 10:46
  * 描述：
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(leavesc.hello.ipc.R.layout.activity_main);
+        TextView tv =new TextView(this);
+        tv.setText("It's in app.MainActivity");
+        setContentView(tv);
         startService(new Intent(this, leavesc.hello.ipc.MyService.class));
     }
 
