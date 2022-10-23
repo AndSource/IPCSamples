@@ -140,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
 ```
 运行结果如下所示
 
-![](https://upload-images.jianshu.io/upload_images/2552605-42a91fb87bdc7982.gif?imageMogr2/auto-orient/strip)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231738983.gif)
 
 在上面的示例代码中我是用 Message 来承载需要发送的消息的，因为 Messenger 和 Message 都实现了 Parcelable 接口，所以可以跨进程传输。Message 中能用来承载数据的载体有 what、arg1、arg2、obj、Bundle、replyTo。当中，obj 字段在跨进程通信中只能用来承载系统提供的实现了 Parcelable 接口的对象，例如 Bundle 和 Intent。如果承载了非法数据（例如 String），则会发生运行时异常
 
 
 
-![](https://upload-images.jianshu.io/upload_images/2552605-36bd85418eb37b2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231741756.png)
 
 
 
@@ -229,7 +229,7 @@ private static class MessengerHandler extends Handler {
         });
 ```
 运行结果如下所示
-![](https://upload-images.jianshu.io/upload_images/2552605-82be44a7624b0e7d.gif?imageMogr2/auto-orient/strip)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231741581.gif)
 
 从以上介绍可以看出来，Messenger 的使用要比 AIDL 简单得多，因为 Messenger 对 AIDL 进行了封装，使之更加容易使用。但需要注意的是，Messenger 是以串行的方式处理客户端发送的消息，即使有大量的消息同时到达服务端，服务端也只能一个个处理，所以 Messenger 不适合用于处理大量的并发请求，此时就还是需要考虑使用 AIDL 了，因为 AIDL 支持并发通信
 

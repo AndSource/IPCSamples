@@ -7,7 +7,7 @@
 
 这里就来模拟这种多个客户端的 IPC 过程，整个流程是这样的：有两个客户端，一个客户端传递两个整数给服务端进行加法操作，另一个客户端传递两个整数给服务端进行减法操作，所以总的是会有三个不同的应用
 
-![](https://upload-images.jianshu.io/upload_images/2552605-64649232bfe38b2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231741803.png)
 
 ### 二、服务端
 首先创建三个需要的 AIDL 接口，**IOperation.aidl** 用于提供加法操作，**ICompute.aidl** 用于提供减法操作，**IBinderPool.aidl** 是一个用于中转的 **Binder** 对象，含有一个 **queryBinder** 方法用于接收一个唯一标识，并返回客户端实际需要的 **Binder** 对象
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
 运行结果如下所示
 
-![](https://upload-images.jianshu.io/upload_images/2552605-a4d025b183014ae1.gif?imageMogr2/auto-orient/strip)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231741056.gif)
 
 这样，以后每增加一个客户端，就可以再为其指定一个唯一标识，然后在服务端中返回对应的 Binder 对象即可，从而避免了创建多个 Service 的情况，极大的提高了开发效率
 

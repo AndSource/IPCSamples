@@ -122,6 +122,6 @@ public class Demo implements Parcelable {
 ```
 实现 Parcelable 接口需要实现以上四个方法，用于进行序列化、反序列化和内容描述。一般我们也不需要手动实现 Parcelable 接口，可以通过 Android Studio的一个插件：**Android Parcelable code generator** 来自动完成
 
-![](https://upload-images.jianshu.io/upload_images/2552605-d8b1687a60d93dbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231737526.png)
 
 ### **这里提供本系列文章所有的 IPC 示例代码：[IPCSamples](https://github.com/leavesC/IPCSamples)**

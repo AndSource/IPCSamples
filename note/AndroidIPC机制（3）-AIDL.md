@@ -141,7 +141,7 @@ public class AIDLService extends Service {
 
 文件目录如下所示
 
-![](https://upload-images.jianshu.io/upload_images/2552605-dca6492ffb337b48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231737104.png)
 
 指定服务端的包名和 Service 路径，绑定服务，向其传递两个待运算参数并将运算结果展示出来
 
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
 ```
 运行结果如下所示
 
-![](https://upload-images.jianshu.io/upload_images/2552605-d8e0b4e299aea2b1.gif?imageMogr2/auto-orient/strip)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231737518.gif)
 
 可以看到，得到了正确的运算结果了，这就完成了一次简单的 IPC ：客户端将参数传递给了服务端，服务端接收参数并进行计算，并将计算结果返回给客户端
 
@@ -455,13 +455,13 @@ public class MainActivity extends AppCompatActivity {
 ```
 运行结果如下所示：
 
-![](https://upload-images.jianshu.io/upload_images/2552605-0bb779351f8f0f24.gif?imageMogr2/auto-orient/strip)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231737887.gif)
 
 ## 六、正确使用 AIDL 回调接口
 
 在上面的代码中我提供了一个按钮用于解除回调函数，但当点击按钮时，Logcat 却会打印出如下信息
 
-![](https://upload-images.jianshu.io/upload_images/2552605-248798a67c906e02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/hhhaiai/Picture/main/img/202210231737833.png)
 
 该回调没有被注册过？但在注册回调函数和解除回调函数时，使用的都是同个对象啊！其实，这是因为回调函数被序列化了的原因，Binder 会把客户端传过来的对象序列化后转为一个新的对象传给服务端，即使客户端使用的一直是同个对象，但对服务端来说前后两个回调函数其实都是两个完全不相关的对象，对象的跨进程传输本质上都是序列化与反序列化的过程
 
