@@ -19,6 +19,7 @@ public class AIDLService extends Service {
     //声明
     private RemoteCallbackList<IOnOperationCompletedListener> callbackList;
 
+    // 创建aidl服务端实例。本质是一个Binder
     private IOperationManager.Stub stub = new IOperationManager.Stub() {
         @Override
         public void operation(Parameter parameter1, Parameter parameter2) throws RemoteException {
@@ -61,6 +62,7 @@ public class AIDLService extends Service {
         callbackList = new RemoteCallbackList<>();
     }
 
+    // aidl服务端和这个服务（AIDLService）绑定
     @Override
     public IBinder onBind(Intent intent) {
         return stub;
